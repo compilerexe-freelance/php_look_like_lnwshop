@@ -2,7 +2,7 @@
   session_start();
   include('template/header.php');
 
-  // $_SESSION['data_cart'] = $_POST;
+  $_SESSION['data_cart'] = $_POST;
   //
   // print_r($_SESSION['data_cart']);
 

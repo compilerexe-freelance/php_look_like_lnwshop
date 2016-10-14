@@ -53,6 +53,7 @@
 
               $sql = "SELECT * FROM tb_formpayment";
               $result = mysqli_query($conn, $sql);
+              $id_not_confirm = 0;
 
               while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 
@@ -63,6 +64,7 @@
                 while ($row2 = mysqli_fetch_array($result2, MYSQL_ASSOC)) {
                   if ($row2['status'] == 0) {
                     $state = 'ค้างชำระ';
+                    $id_not_confirm = $row2['id'];
                   } else {
                     $state = 'ชำระแล้ว';
                   }
@@ -80,7 +82,7 @@
                 ';
 
                 if ($state == 'ค้างชำระ') {
-                  echo '<td><a href="process/update_payment.php?id='. $row['id'] .'">อนุมัติ</a></td>';
+                  echo '<td><a href="process/update_payment.php?id='. $id_not_confirm .'">อนุมัติ</a></td>';
                 } else {
                   echo '<td></td>';
                 }
