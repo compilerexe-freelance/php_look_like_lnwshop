@@ -82,16 +82,7 @@
                 <td><input type="text" name="topic" class="form-control" value="<?php echo $topic; ?>"></td>
                 <td></td>
               </tr>
-              <tr>
-                <td><b>ชื่อ</b></td>
-                <td><input type="text" name="name" class="form-control" value="<?php echo $name; ?>"></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td><b>อีเมล</b></td>
-                <td><input type="text" name="email" class="form-control" value="<?php echo $email; ?>"></td>
-                <td></td>
-              </tr>
+              <input type="hidden" name="name" value="admin">
               <tr>
                 <td><b>ข้อความ</b></td>
                 <td><textarea name="detail" class="form-control" style="resize: none;" rows="8" cols="40"><?php echo $detail; ?></textarea></td>

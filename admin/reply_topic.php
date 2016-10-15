@@ -3,13 +3,13 @@
   include('db_config.php');
   include('header.php');
 
-  if ($_SESSION['delete_topic'] == 'success') {
+  if ($_SESSION['update_topic'] == 'success') {
     echo '
       <script>
-        swal("ลบกระทู้เรียบร้อยแล้ว", "", "success")
+        swal("แก้ไขกระทู้เรียบร้อยแล้ว", "", "success")
       </script>
     ';
-    $_SESSION['delete_topic'] = null;
+    $_SESSION['update_topic'] = null;
   }
 ?>
 
@@ -39,7 +39,7 @@
       </div>
 
       <div class="col-md-12 text-center">
-        <h2>ลบกระทู้</h2>
+        <h2>ตอบกระทู้</h2>
       </div>
 
       <div class="col-md-12" style="margin-top: 30px;">
@@ -62,7 +62,7 @@
                     <td>'.$row['topic'].'</td>
                     <td>'.$row['name'].'</td>
                     <td>'.$row['created_at'].'</td>
-                    <td><a href="process/delete_topic.php?id='.$row['id'].'">ลบ</a></td>
+                    <td><a href="reply_topic_form.php?id='.$row['id'].'">ตอบกระทู้</a></td>
                   </tr>
                 ';
               }

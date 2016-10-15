@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 14, 2016 at 03:13 PM
+-- Generation Time: Oct 15, 2016 at 03:22 PM
 -- Server version: 5.7.15-log
 -- PHP Version: 5.6.26
 
@@ -42,8 +42,8 @@ CREATE TABLE `tb_formpayment` (
 --
 
 INSERT INTO `tb_formpayment` (`id`, `number_order`, `price`, `picture`, `hour`, `minute`, `payment_date`, `bank`) VALUES
-(1, '6367919', '8990', '1082397.png', '01', '02', '2016-10-08', 'กรุงไทย'),
-(2, '7543182', '2130', '4346710.jpg', '00', '01', '2016-10-09', 'กรุงไทย');
+(1, '7876617', '1000', '6238830.jpg', '00', '01', '2016-10-14', 'ธ.ไทยพาณิชย์'),
+(2, '8550903', '2000', '5111083.jpg', '02', '03', '2016-10-14', 'ธ.ไทยพาณิชย์');
 
 -- --------------------------------------------------------
 
@@ -117,14 +117,9 @@ CREATE TABLE `tb_order` (
 --
 
 INSERT INTO `tb_order` (`id`, `number_order`, `code_item`, `title_item`, `count_order`, `price_order`, `option_send`, `created_at`) VALUES
-(1, '6367919', '0001', 'เเบริ้งชาล์ฟ', '1', '1180', 0, '2016-10-08 05:53:46'),
-(2, '6367919', '0002', 'เซพตี้วาวล์', '1', '800', 0, '2016-10-08 05:53:46'),
-(3, '6367919', '0003', 'เฟืองเกียร์3', '1', '3960', 0, '2016-10-08 05:53:46'),
-(4, '6367919', '0004', 'เฟืองดอกจอกเล็ก', '1', '3050', 0, '2016-10-08 05:53:46'),
-(5, '7543182', '0001', 'เเบริ้งชาล์ฟ', '1', '1180', 1, '2016-10-07 18:04:34'),
-(6, '7543182', '0002', 'เซพตี้วาวล์', '1', '800', 1, '2016-10-07 18:04:34'),
-(7, '4800994', '0001', 'เเบริ้งชาล์ฟ', '1', '1180', 0, '2016-10-13 19:07:53'),
-(8, '4800994', '0002', 'เซพตี้วาวล์', '2', '1600', 0, '2016-10-13 19:07:53');
+(1, '8550903', '0001', 'เเบริ้งชาล์ฟ', '1', '1180', 0, '2016-10-14 04:22:29'),
+(2, '7876617', '0001', 'เเบริ้งชาล์ฟ', '1', '1180', 0, '2016-10-14 04:23:03'),
+(3, '7876617', '0002', 'เซพตี้วาวล์', '1', '800', 0, '2016-10-14 04:23:03');
 
 -- --------------------------------------------------------
 
@@ -143,9 +138,8 @@ CREATE TABLE `tb_payment` (
 --
 
 INSERT INTO `tb_payment` (`id`, `number_order`, `status`) VALUES
-(1, '6367919', 1),
-(2, '7543182', 0),
-(3, '4800994', 0);
+(1, '8550903', 1),
+(2, '7876617', 1);
 
 -- --------------------------------------------------------
 
@@ -172,9 +166,39 @@ CREATE TABLE `tb_person` (
 --
 
 INSERT INTO `tb_person` (`id`, `number_order`, `name`, `address`, `sub_district`, `district`, `province`, `postal_code`, `tel`, `email`, `created_at`) VALUES
-(1, '6367919', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', '2016-10-08 05:53:46'),
-(2, '7543182', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', '2016-10-07 18:04:34'),
-(3, '4800994', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q@q.com', '2016-10-13 19:07:53');
+(1, '8550903', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a@a.com', '2016-10-14 04:22:29'),
+(2, '7876617', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', '2016-10-14 04:23:03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_reply`
+--
+
+CREATE TABLE `tb_reply` (
+  `id` int(11) NOT NULL,
+  `topic_id` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `detail` varchar(255) DEFAULT NULL,
+  `created_at` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_reply`
+--
+
+INSERT INTO `tb_reply` (`id`, `topic_id`, `name`, `email`, `detail`, `created_at`) VALUES
+(1, '1', 'abc', 'abc@gmail.com', '<p>reply 1</p>', '2016-10-15'),
+(2, '2', 'abcd', 'abcd@gmail.com', '<p>reply test 2 ...</p>', '2016-10-15'),
+(3, '1', 'admin', '', '<p>admin</p>', '2016-10-15'),
+(4, '2', 'admin', '', '<p>hello test 2</p>', '2016-10-15'),
+(5, '3', 'user', 'user@gmail.com', '<p>What your name ?</p>', '2016-10-15'),
+(7, '3', 'admin', '', '<p>i\'m admin</p>', '2016-10-15'),
+(8, '4', 'user', 'user@gmail.com', '<p>Hello World</p>', '2016-10-15'),
+(9, '4', 'admin', '', '<p>Hi</p>', '2016-10-15'),
+(10, '7', 'a', 'a', '<p>66</p>', '2016-10-15'),
+(11, '7', 'admin', '', '<p>666</p>', '2016-10-15');
 
 -- --------------------------------------------------------
 
@@ -207,15 +231,21 @@ CREATE TABLE `tb_webboard` (
   `name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `detail` varchar(255) DEFAULT NULL,
-  `created_at` varchar(255) DEFAULT NULL
+  `picture` varchar(255) DEFAULT NULL,
+  `created_at` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tb_webboard`
 --
 
-INSERT INTO `tb_webboard` (`id`, `topic`, `name`, `email`, `detail`, `created_at`) VALUES
-(1, 'test1', 'a', 'test1@test.com', '<p>...</p>', '2016-10-09 06:53:41');
+INSERT INTO `tb_webboard` (`id`, `topic`, `name`, `email`, `detail`, `picture`, `created_at`) VALUES
+(1, 'test1', 'admin', '', '<p>test 1 ...</p>', NULL, '2016-10-09'),
+(2, 'test 2', 'admin', 'admin@gmail.com', '<p>...</p>', NULL, '2016-10-15'),
+(3, 'test 3', 'admin', 'admin@gmail.com', '<p>...</p>', '6469268.jpg', '2016-10-15'),
+(4, 'test 4', 'admin', 'admin@gmail.com', '<p>...</p>', '', '2016-10-15'),
+(5, 'test 5', 'admin', 'admin@gmail.com', '<p>...</p>', '', '2016-10-15'),
+(7, 'test 6', 'admin', '', '<p>test 6 ...</p>', '8993652.jpg', '2016-10-15');
 
 --
 -- Indexes for dumped tables
@@ -258,6 +288,12 @@ ALTER TABLE `tb_person`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tb_reply`
+--
+ALTER TABLE `tb_reply`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tb_user`
 --
 ALTER TABLE `tb_user`
@@ -292,17 +328,22 @@ ALTER TABLE `tb_item`
 -- AUTO_INCREMENT for table `tb_order`
 --
 ALTER TABLE `tb_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tb_payment`
 --
 ALTER TABLE `tb_payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tb_person`
 --
 ALTER TABLE `tb_person`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `tb_reply`
+--
+ALTER TABLE `tb_reply`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `tb_user`
 --
@@ -312,7 +353,7 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT for table `tb_webboard`
 --
 ALTER TABLE `tb_webboard`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

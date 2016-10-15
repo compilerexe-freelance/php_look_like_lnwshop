@@ -1,7 +1,7 @@
 <?php
   session_start();
-  include('config/db_config.php');
-  include('template/header.php');
+  include('db_config.php');
+  include('header.php');
 
   if ($_SESSION['insert_reply'] == 'success') {
     echo '
@@ -63,12 +63,20 @@
 
   <div class="col-md-12">
 
-    <?php include('template/menu.php'); ?>
+    <?php include('menu.php'); ?>
 
     <div class="col-md-9" style="background-color: #ffffe6; border: 1px solid #abc; margin-top: 5px; padding-bottom: 100px;">
 
-      <div class="col-md-12 text-left" style="margin-top: 25px;">
-        <a href="index.php">หน้าแรก</a> > <a href="webboard.php">เว็บบอร์ด</a> > <?php echo $topic; ?>
+      <div class="col-md-12" style="margin-top: 20px;">
+        <i class="glyphicon glyphicon-plus"></i> <a href="create_topic.php" style="margin-right: 10px;">เพิ่มกระทู้</a>
+        <i class="glyphicon glyphicon-pencil"></i> <a href="edit_topic.php" style="margin-right: 10px;">แก้ไขกระทู้</a>
+        <i class="glyphicon glyphicon-comment"></i> <a href="reply_topic.php" style="margin-right: 10px;">ตอบกระทู้</a>
+        <i class="glyphicon glyphicon-trash"></i> <a href="delete_topic.php" style="margin-right: 10px;">ลบกระทู้</a>
+        <hr size="1">
+      </div>
+
+      <div class="col-md-12 text-center">
+        <h2>ตอบกระทู้</h2>
       </div>
 
       <div class="col-md-12" style="margin-top: 30px;">
@@ -78,7 +86,7 @@
             <div class="panel-body">
                 <?php
                   if ($picture != null) {
-                    echo "<img src='admin/process/uploads/". $picture ."' class='img-responsive'><br>";
+                    echo "<img src='process/uploads/". $picture ."' class='img-responsive'><br>";
                   }
                   echo $detail;
                 ?>
@@ -107,9 +115,7 @@
           ?>
 
           <hr>
-          <div class="col-md-12 text-center">
-            <h3>ตอบกระทู้</h3>
-          </div>
+
           <table class="table">
             <thead>
               <tr>
@@ -121,16 +127,7 @@
             <tbody>
               <form action="process/reply.php" method="post">
                 <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
-                <tr>
-                  <td><b>ชื่อ</b></td>
-                  <td><input type="text" name="name" class="form-control" value=""></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td><b>อีเมล</b></td>
-                  <td><input type="text" name="email" class="form-control" value=""></td>
-                  <td></td>
-                </tr>
+                <input type="hidden" name="name" value="admin">
                 <tr>
                   <td><b>ข้อความ</b></td>
                   <td><textarea name="detail" class="form-control" style="resize: none;" rows="8" cols="40"></textarea></td>
@@ -152,4 +149,4 @@
 
 </div> <!-- end row -->
 
-<?php include('template/footer.php'); ?>
+<?php include('footer.php'); ?>
