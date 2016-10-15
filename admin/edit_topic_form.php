@@ -53,6 +53,7 @@
       <div class="col-md-12" style="margin-top: 20px;">
         <i class="glyphicon glyphicon-plus"></i> <a href="create_topic.php" style="margin-right: 10px;">เพิ่มกระทู้</a>
         <i class="glyphicon glyphicon-pencil"></i> <a href="edit_topic.php" style="margin-right: 10px;">แก้ไขกระทู้</a>
+        <i class="glyphicon glyphicon-comment"></i> <a href="reply_topic.php" style="margin-right: 10px;">ตอบกระทู้</a>
         <i class="glyphicon glyphicon-trash"></i> <a href="delete_topic.php" style="margin-right: 10px;">ลบกระทู้</a>
         <hr size="1">
       </div>
