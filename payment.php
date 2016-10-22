@@ -10,6 +10,8 @@
       </script>
     ';
     $_SESSION['insert_order'] = null;
+    $_SESSION['data_cart'] = null;
+    $_SESSION['array_code_item'] = null;
   }
 ?>
 

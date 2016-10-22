@@ -3,22 +3,13 @@
   include('config/db_config.php');
   include('template/header.php');
 
-  if ($_SESSION['insert_reply'] == 'success') {
+  if ($_SESSION['insert_order'] == 'success') {
     echo '
       <script>
-        swal("ตอบกระทู้เรียบร้อยแล้ว", "", "success")
+        swal("สั่งซื้อสินค้าเรียบร้อยแล้ว", "", "success")
       </script>
     ';
-    $_SESSION['insert_reply'] = null;
-  }
-
-  if ($_SESSION['reply_fail_name'] == 'fail_name') {
-    echo '
-      <script>
-        swal("กรุณาใช้ชื่ออื่น", "", "error")
-      </script>
-    ';
-    $_SESSION['reply_fail_name'] = null;
+    $_SESSION['insert_order'] = null;
   }
 
   $id = $_GET['id'];
@@ -26,8 +17,6 @@
   $name = null;
   $email = null;
   $detail = null;
-  $picture = null;
-  $created_at = null;
 
   $sql = "SELECT * FROM tb_webboard WHERE id = $id";
   $result = mysqli_query($conn, $sql);
@@ -37,12 +26,6 @@
     $name     = $row['name'];
     $email    = $row['email'];
     $detail   = $row['detail'];
-
-    if ($row['picture'] != null) {
-      $picture = $row['picture'];
-    }
-
-    $created_at = $row['created_at'];
   }
 ?>
 
@@ -67,49 +50,12 @@
 
     <div class="col-md-9" style="background-color: #ffffe6; border: 1px solid #abc; margin-top: 5px; padding-bottom: 100px;">
 
-      <div class="col-md-12 text-left" style="margin-top: 25px;">
-        <a href="index.php">หน้าแรก</a> > <a href="webboard.php">เว็บบอร์ด</a> > <?php echo $topic; ?>
+      <div class="col-md-12 text-center">
+        <h2>การจัดการกระทู้</h2>
       </div>
 
       <div class="col-md-12" style="margin-top: 30px;">
 
-          <div class="panel panel-default">
-            <div class="panel-heading" style="font-size: 22px;"><?php echo $topic; ?></div>
-            <div class="panel-body">
-                <?php
-                  if ($picture != null) {
-                    echo "<img src='admin/process/uploads/". $picture ."' class='img-responsive'><br>";
-                  }
-                  echo $detail;
-                ?>
-            </div>
-            <div class="panel-footer">
-              โดย <?php echo $name . ' / โพสต์เมื่อ ' . $created_at; ?>
-            </div>
-          </div>
-
-          <?php
-            $sql = "SELECT name, detail, created_at FROM tb_reply WHERE topic_id = $id";
-            $result = mysqli_query($conn, $sql);
-
-            while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
-              echo '
-                <div class="panel panel-default">
-                  <div class="panel-body">
-                      '. $row['detail'] .'
-                  </div>
-                  <div class="panel-footer">
-                    โดย '. $row['name'] .' / ตอบกลับเมื่อ '. $row['created_at'] .'
-                  </div>
-                </div>
-              ';
-            }
-          ?>
-
-          <hr>
-          <div class="col-md-12 text-center">
-            <h3>ตอบกระทู้</h3>
-          </div>
           <table class="table">
             <thead>
               <tr>
@@ -119,29 +65,32 @@
               </tr>
             </thead>
             <tbody>
-              <form action="process/reply.php" method="post">
-                <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
-                <tr>
-                  <td><b>ชื่อ</b></td>
-                  <td><input type="text" name="name" class="form-control" value=""></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td><b>อีเมล</b></td>
-                  <td><input type="text" name="email" class="form-control" value=""></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td><b>ข้อความ</b></td>
-                  <td><textarea name="detail" class="form-control" style="resize: none;" rows="8" cols="40"></textarea></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td><button type="submit" class="btn btn-success" style="width: 150px;">ตอบกระทู้</button></td>
-                  <td></td>
-                </tr>
-              </form>
+
+              <tr>
+                <td><b>หัวข้อ</b></td>
+                <td><input type="text" name="topic" class="form-control" value="<?php echo $topic; ?>"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><b>ชื่อ</b></td>
+                <td><input type="text" name="name" class="form-control" value="<?php echo $name; ?>"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><b>อีเมล</b></td>
+                <td><input type="text" name="email" class="form-control" value="<?php echo $email; ?>"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><b>ข้อความ</b></td>
+                <td><textarea name="detail" class="form-control" style="resize: none;" rows="8" cols="40"><?php echo $detail; ?></textarea></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
             </tbody>
           </table>
         </div>

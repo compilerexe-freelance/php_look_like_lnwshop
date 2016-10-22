@@ -62,7 +62,7 @@
 
                 foreach ($_SESSION['data_cart'] as $key => $value) {
                   if ($key != 'option_send') {
-                    // echo $value . '<br>';
+                    // echo $key . '<br>';
 
                     echo '<tr>';
                     $sql = "SELECT * FROM tb_item WHERE code_item = $value";
@@ -70,16 +70,17 @@
                     $result = mysqli_query($conn, $sql);
                     while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 
-                      if ($row['code_item'] == $key) {
+                      if ($row['code_item'] == $key && strlen($key) >= 4) {
                         echo '
                           <td>'. $value . '</td>
                           <td>'. $row['title_item'] .'</td>
-                          <td>'. $_SESSION['data_cart']['count_'.$row['id']] .'</td>
+                          <td>'. $_SESSION['data_cart']['send_count_'.$row['id']] .'</td>
                           <td>'. $row['price_item'] .'</td>
-                          <td>'. $row['price_item'] * $_SESSION['data_cart']['count_'.$row['id']] .'</td>
+                          <td>'. $row['price_item'] * $_SESSION['data_cart']['send_count_'.$row['id']] .'</td>
                         ';
 
-                        $total = $total + $row['price_item'] * $_SESSION['data_cart']['count_'.$row['id']];
+                        $total = $total + $row['price_item'] * $_SESSION['data_cart']['send_count_'.$row['id'] ];
+
                       }
 
                     }

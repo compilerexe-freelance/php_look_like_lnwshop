@@ -4,12 +4,13 @@
   include('../config/db_config.php');
 
   $total = 0;
-  $option_send = 0;
+  $option_send = $_SESSION['data_cart']['option_send'];
   $price_send = 0;
   $result_price = 0;
   $number_order = $_POST['order_number'];
   echo $number_order . '<br>';
 
+  // echo $_SESSION['data_cart']['option_send'];
 ?>
 
 <style>
@@ -34,6 +35,8 @@
   <tbody>
 
     <?php
+      // buffer sum price
+      $sum = 0;
 
       foreach ($_SESSION['data_cart'] as $key => $value) {
         if ($key != 'option_send') {
@@ -43,24 +46,30 @@
           $sql = "SELECT * FROM tb_item WHERE code_item = $value";
 
           $result = mysqli_query($conn, $sql);
+
+
+
           while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 
             if ($row['code_item'] == $key) {
               echo '
                 <td>'. $value . '</td>
                 <td>'. $row['title_item'] .'</td>
-                <td>'. $_SESSION['data_cart']['count_'.$row['id']] .'</td>
+                <td>'. $_SESSION['data_cart']['send_count_'.$row['id']] .'</td>
                 <td>'. $row['price_item'] .'</td>
-                <td>'. $row['price_item'] * $_SESSION['data_cart']['count_'.$row['id']] .'</td>
+                <td>'. $row['price_item'] * $_SESSION['data_cart']['send_count_'.$row['id']] .'</td>
               ';
 
-              $total = $total + $row['price_item'] * $_SESSION['data_cart']['count_'.$row['id']];
+              $total = $total + $row['price_item'] * $_SESSION['data_cart']['send_count_'.$row['id']];
 
               // insert order
               $title_item = $row["title_item"];
-              $item_count = $_SESSION['data_cart']['count_'.$row['id']];
-              $price_multiply = $row['price_item'] * $_SESSION['data_cart']['count_'.$row['id']];
+              $item_count = $_SESSION['data_cart']['send_count_'.$row['id']];
+              $price_multiply = $row['price_item'] * $_SESSION['data_cart']['send_count_'.$row['id']];
               $date_now = date('Y-m-d h:i:s');
+
+              // sum
+              $sum = $sum + $price_multiply;
 
               $sql = "INSERT INTO tb_order (number_order, code_item, title_item, count_order, price_order, option_send, created_at)
               VALUES('$number_order', '$value', '$title_item', '$item_count', '$price_multiply', '$option_send', '$date_now')";
@@ -77,6 +86,7 @@
             }
 
           }
+
           echo '</tr>';
 
         } else {
@@ -124,6 +134,22 @@
           exit(0);
       }
       // end insert payment
+
+      // query sum
+      if ($option_send == 1) {
+        $sum = $sum + 150;
+      } else if ($option_send == 2) {
+        $sum = $sum + 200;
+      }
+
+      $sql = "INSERT INTO tb_order (number_order, code_item, title_item, count_order, price_order, option_send, created_at)
+      VALUES('$number_order', '', '', 'ราคารวมทั้งหมด + ค่าจัดส่ง', '$sum', '$option_send', '$date_now')";
+      if ($conn->query($sql) === TRUE) {
+
+      } else {
+          echo "Error: " . $sql . "<br>" . $conn->error;
+          exit(0);
+      }
 
       $_SESSION['insert_order'] = 'success';
       header( "location: http://localhost/shop/payment.php" );

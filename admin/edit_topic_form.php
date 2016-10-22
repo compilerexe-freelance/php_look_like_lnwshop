@@ -53,7 +53,6 @@
       <div class="col-md-12" style="margin-top: 20px;">
         <i class="glyphicon glyphicon-plus"></i> <a href="create_topic.php" style="margin-right: 10px;">เพิ่มกระทู้</a>
         <i class="glyphicon glyphicon-pencil"></i> <a href="edit_topic.php" style="margin-right: 10px;">แก้ไขกระทู้</a>
-        <i class="glyphicon glyphicon-comment"></i> <a href="reply_topic.php" style="margin-right: 10px;">ตอบกระทู้</a>
         <i class="glyphicon glyphicon-trash"></i> <a href="delete_topic.php" style="margin-right: 10px;">ลบกระทู้</a>
         <hr size="1">
       </div>
@@ -83,7 +82,16 @@
                 <td><input type="text" name="topic" class="form-control" value="<?php echo $topic; ?>"></td>
                 <td></td>
               </tr>
-              <input type="hidden" name="name" value="admin">
+              <tr>
+                <td><b>ชื่อ</b></td>
+                <td><input type="text" name="name" class="form-control" value="<?php echo $name; ?>"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><b>อีเมล</b></td>
+                <td><input type="text" name="email" class="form-control" value="<?php echo $email; ?>"></td>
+                <td></td>
+              </tr>
               <tr>
                 <td><b>ข้อความ</b></td>
                 <td><textarea name="detail" class="form-control" style="resize: none;" rows="8" cols="40"><?php echo $detail; ?></textarea></td>

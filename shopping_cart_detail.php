@@ -1,4 +1,6 @@
 <?php
+  error_reporting(0);
+
   session_start();
   include('config/db_config.php');
   include('template/header.php');
@@ -38,22 +40,31 @@
 
     $('input[type=radio][name=option_send]').on('change', function() {
       if ($(this).val() == '1') {
-
-        total = parseInt($('#txt_result_price').text()) - buffer_price_send;
+        // console.log('total : '+ $('#txt_result_price').text());
+        total = parseInt($('#txt_result_price').text());
         total = total + 150;
-        buffer_price_send = 150;
         $('#price_send').text(' ' + total + ' ');
-        console.log(buffer_price_send);
+
+        // total = parseInt($('#txt_result_price').text()) - buffer_price_send;
+        // total = total + 150;
+        // buffer_price_send = 150;
+        // $('#price_send').text(' ' + total + ' ');
+        // console.log(buffer_price_send);
 
       } else if ($(this).val() == '2') {
-
-        total = parseInt($('#txt_result_price').text()) - buffer_price_send;
+        // console.log('total : '+ $('#txt_result_price').text());
+        total = parseInt($('#txt_result_price').text());
         total = total + 200;
-        buffer_price_send = 200;
         $('#price_send').text(' ' + total + ' ');
-        console.log(buffer_price_send);
+
+        // total = parseInt($('#txt_result_price').text()) - buffer_price_send;
+        // total = total + 200;
+        // buffer_price_send = 200;
+        // $('#price_send').text(' ' + total + ' ');
+        // console.log(buffer_price_send);
 
       } else {
+        // console.log('total : '+ $('#txt_result_price').text());
 
         $('#price_send').text(' ' + $('#txt_result_price').text() + ' ');
         buffer_price_send = 0;
@@ -167,7 +178,7 @@
                             <span id="txt_price_'. $row['id'] .'"> '. $row['price_item'] .' </span>บาท
                             <input type="hidden" name="'. $add_code_item .'" value="'. $add_code_item .'">
                             <input type="hidden" name="'. $row['price_item'] .'" value="'. $row['price_item'] .'">
-                            <input type="hidden" name="count_'. $row['id'] .'" value="1">
+                            <input type="hidden" name="send_count_'. $row['id'] .'" id="send_count_'. $row['id'] .'" value="1">
                           </td>
 
                         </tr>
@@ -204,6 +215,8 @@
                           result_count_item--;
                           $("#txt_result_count_item").text(result_count_item + " ชิ้น");
 
+                          $("#send_count_'. $row['id'] .'").val($("#count_'. $row['id'] .'").val());
+
                           sum = parseInt($("#txt_result_price").text()) - '.$row['price_item'].';
                           $("#txt_result_price").text(sum);
 
@@ -228,6 +241,8 @@
 
                           result_count_item++;
                           $("#txt_result_count_item").text(result_count_item + " ชิ้น");
+
+                          $("#send_count_'. $row['id'] .'").val($("#count_'. $row['id'] .'").val());
 
                           sum = parseInt($("#txt_result_price").text()) + '.$row['price_item'].';
                           $("#txt_result_price").text(sum);

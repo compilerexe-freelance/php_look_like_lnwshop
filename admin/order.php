@@ -1,15 +1,6 @@
 <?php
-  session_start();
+  // session_start();
   include('header.php');
-
-  if ($_SESSION['edit_item'] == 'success') {
-    echo '
-      <script>
-        swal("แก้ไขสินค้าเรียบร้อยแล้ว", "", "success")
-      </script>
-    ';
-    $_SESSION['edit_item'] = null;
-  }
 ?>
 
 <style>

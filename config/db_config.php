@@ -2,7 +2,7 @@
 
   $localhost  = 'localhost';
   $db_user    = 'root';
-  $db_pass    = '123456789';
+  $db_pass    = '';
   $db_name    = 'shop';
 
   // Create connection
@@ -11,5 +11,7 @@
   if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
   }
+
+  $conn->query("SET NAMES utf8");
 
 ?>
